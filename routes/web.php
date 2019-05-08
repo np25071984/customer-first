@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/admin', 'Admin\AdminController@show')->name('admin.show');
+});
+
+Route::group(['middleware' => 'verified'], function () {
+    Route::get('/dashboard', 'User\UserController@dashboard')->name('user.dashboard');
+});
