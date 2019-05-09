@@ -19,13 +19,13 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'flowers_old',
+            'value' => 'flowers_old',
             'category_id' => $id,
         ]);
         sleep(1);
 
         CategorySlug::create([
-            'slug' => 'flowers',
+            'value' => 'flowers',
             'category_id' => $id,
         ]);
 
@@ -36,7 +36,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'butiful',
+            'value' => 'butiful',
             'category_id' => $subId,
         ]);
 
@@ -47,7 +47,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'odsnfla',
+            'value' => 'odsnfla',
             'category_id' => $subId,
         ]);
 
@@ -58,7 +58,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'oahi38shf',
+            'value' => 'oahi38shf',
             'category_id' => $subId,
         ]);
 
@@ -69,7 +69,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'instrument',
+            'value' => 'instrument',
             'category_id' => $id,
         ]);
 
@@ -80,7 +80,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => '9asfklsdds',
+            'value' => '9asfklsdds',
             'category_id' => $subId,
         ]);
 
@@ -91,7 +91,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => '8349rdgadg',
+            'value' => '8349rdgadg',
             'category_id' => $subId,
         ]);
 
@@ -102,7 +102,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => '9329nfskajh',
+            'value' => '9329nfskajh',
             'category_id' => $subId,
         ]);
 
@@ -113,7 +113,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'ksdn389sf',
+            'value' => 'ksdn389sf',
             'category_id' => $subId,
         ]);
 
@@ -124,7 +124,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'sklamdf234kmlfd',
+            'value' => 'sklamdf234kmlfd',
             'category_id' => $subId,
         ]);
 
@@ -135,7 +135,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'o32knlksf',
+            'value' => 'o32knlksf',
             'category_id' => $subId,
         ]);
 
@@ -146,7 +146,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'milk',
+            'value' => 'milk',
             'category_id' => $id,
         ]);
 
@@ -157,7 +157,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'o32l4kdslf',
+            'value' => 'o32l4kdslf',
             'category_id' => $subId,
         ]);
 
@@ -168,7 +168,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'slug' => 'lsdnf32nls',
+            'value' => 'lsdnf32nls',
             'category_id' => $subId,
         ]);
 

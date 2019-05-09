@@ -17,7 +17,9 @@ class AdminController extends Controller
     public function categoriesList()
     {
         // TODO: add with Slug
-        $categories = Category::where('parent_id', null)->orderBy('order')->with('children')->get();
+        $categories = Category::where('parent_id', null)->with('children', 'slug')->get();
+        dd($categories);
+        $categories = Category::where('parent_id', null)->orderBy('order')->with('children', 'slug')->get();
         return view('admin/categories_list', ['categories' => $categories]);
     }
 }

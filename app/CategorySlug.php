@@ -19,7 +19,7 @@ class CategorySlug extends Model
      * @return App\Category
      */
     public function category() {
-        return $this->hasOne('App\Category', 'id', 'category_id')->with('slug');
+        return $this->belongsTo('App\Category', 'category_id', 'id')->with('slug');
     }
 
 }

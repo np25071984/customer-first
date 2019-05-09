@@ -15,7 +15,7 @@ class CreateCategoriesSlugTable extends Migration
     {
         Schema::create('categories_slug', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('slug')->unique()->index()->nullable(false);
+            $table->string('value')->unique()->index()->nullable(false);
             $table->timestamp('created_at')->useCurrent();
         });
 

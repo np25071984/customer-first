@@ -12,7 +12,9 @@ class Category extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children() {
-        return $this->hasMany('App\Category', 'parent_id', 'id')->orderBy('order');
+        return $this->hasMany('App\Category', 'parent_id', 'id')->
+            orderBy('order')->
+            with('children');
     }
 
     /**

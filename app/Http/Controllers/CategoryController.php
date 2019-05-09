@@ -15,7 +15,7 @@ class CategoryController extends Controller
         // find actual slug by given one (check if it obsolete)
         $categorySlug = CategorySlug::where('slug', $slug)->with('category')->firstOrFail();
         $category = $categorySlug->category;
-        $actualSlug = $category->slug->slug;
+        $actualSlug = $category->slug->value;
 
         /*
         $actualSlug = \DB::select('
