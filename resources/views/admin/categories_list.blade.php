@@ -16,7 +16,7 @@
 
                         <ul>
                         @foreach ($categories as $category)
-                            <li><a href="{{ route('category.show', 'aa') }}">{{ $category->title }}</a>
+                            <li><a href="{{ route('category.show', $category->slug->value) }}">{{ $category->title }}</a>
                                 @if($category->children->count() > 0)
                                     <ul>
                                     @foreach($category->children as $child)

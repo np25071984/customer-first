@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function show($slug)
     {
         // find actual slug by given one (check if it obsolete)
-        $categorySlug = CategorySlug::where('slug', $slug)->with('category')->firstOrFail();
+        $categorySlug = CategorySlug::where('value', $slug)->firstOrFail();
         $category = $categorySlug->category;
         $actualSlug = $category->slug->value;
 

@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $with = ['slug' ];
+
+    public function scopeRoot($query) {
+        return $query->whereNull('parent_id');
+    }
+
     /**
      * Returns all subcategories
      *
@@ -13,8 +19,8 @@ class Category extends Model
      */
     public function children() {
         return $this->hasMany('App\Category', 'parent_id', 'id')->
-            orderBy('order')->
-            with('children');
+            with('children')->
+            oldest('order');
     }
 
     /**
@@ -23,7 +29,6 @@ class Category extends Model
      * @return App\CategorySlug
      */
     public function slug() {
-        return $this->hasOne('App\CategorySlug', 'category_id', 'id')->
-            orderBy('created_at', 'desc')->limit(1);
+        return $this->hasOne('App\CategorySlug', 'category_id', 'id')->latest();
     }
 }
