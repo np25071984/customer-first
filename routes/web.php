@@ -15,12 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
+
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin', 'Admin\AdminController@show')->name('admin.show');
+    Route::get('/admin', 'Admin\AdminController@dashboard')->name('admin.dashboard');
+    Route::get('/admin/categories', 'Admin\AdminController@categoriesList')->name('admin.categories.list');
 });
 
 Route::group(['middleware' => 'verified'], function () {

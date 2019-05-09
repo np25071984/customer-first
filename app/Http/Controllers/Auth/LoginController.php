@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public function redirectTo(){
         if (Auth::user()->admin) {
-            return route('admin.show');
+            return route('admin.dashboard');
         } else {
             return route('user.dashboard');
         }

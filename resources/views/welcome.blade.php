@@ -69,8 +69,8 @@
                 <div class="top-right links">
                     @auth
                         @if (Auth::user()->admin)
-                            @if (Route::has('user.dashboard'))
-                                <a href="{{ route('admin.show') }}">Admin panel</a>
+                            @if (Route::has('admin.dashboard'))
+                                <a href="{{ route('admin.dashboard') }}">Admin panel</a>
                             @endif
                         @endif
 
