@@ -8,7 +8,7 @@ class Category extends Model
 {
     protected $with = ['slug' ];
 
-    public function scopeRoot($query) {
+    public function scopeRoots($query) {
         return $query->whereNull('parent_id');
     }
 

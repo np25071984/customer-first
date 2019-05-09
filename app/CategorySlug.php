@@ -15,6 +15,10 @@ class CategorySlug extends Model
 
     public $timestamps = false;
 
+    public function getRouteKeyName() {
+        return 'value';
+    }
+
     /**
      * @return App\Category
      */

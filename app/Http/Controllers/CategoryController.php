@@ -10,33 +10,13 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends Controller
 {
-    public function show($slug)
+    public function show(CategorySlug $slug)
     {
-        // find actual slug by given one (check if it obsolete)
-        $categorySlug = CategorySlug::where('value', $slug)->firstOrFail();
-        $category = $categorySlug->category;
+        $category = $slug->category;
         $actualSlug = $category->slug->value;
 
-        /*
-        $actualSlug = \DB::select('
-            SELECT slug
-            FROM categories_slug
-            WHERE category_id = (
-                SELECT category_id
-                FROM categories_slug
-                WHERE slug = ?)
-            ORDER BY created_at
-            DESC LIMIT 1',
-            [$slug]
-        );
-        if (!$actualSlug || !isset($actualSlug[0])) {
-            throw new ModelNotFoundException;
-        }
-        $actualSlug = $actualSlug[0]->slug;
-        */
-
         // redirect if there is a fresh slug
-        if ($slug !== $actualSlug) {
+        if ($slug->value !== $actualSlug) {
             return redirect(route('category.show', $actualSlug), 301);
         }
 
