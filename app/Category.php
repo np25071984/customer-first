@@ -43,7 +43,7 @@ class Category extends Model
             AND @pv2 := CONCAT(@pv,',', id)
         ";
 
-        return collect(\DB::select($sql, [$this->id]))->pluck('id');
+        return collect(\DB::select($sql, [$this->id]))->pluck('id')->all();
     }
 
     /**

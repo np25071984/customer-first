@@ -29,14 +29,28 @@ Every category  has to have `slug` value. We can add infinity number of new `slu
 
 `CategorySlug` object injects directly to a `Controller`.
 
+`Category` object contains:
+ * `ItemContainer` objects which located all way down through the hierarchy tree
+
+## Brands
+
+Simple `Brand` model.
+
+`BrandSlug` object injects directly to a `Controller`.
+
 ## Goods model
 
 `Item` model contains a product entity. `ItemContainer` model contains any number of `Items`. It makes possible to combine similar products and inherit properties.
 
-`Category@containers` returns all `Containers` which located all way down through the hierarchy tree. 
+`ItemContainer` object contains:
+ * `Item` list
+ * `Brand`
+ 
+`Items` object contains:
+ * `ItemContainer`
 
-`CategorySlug` object injects directly to a `Controller`.
+`ItemSlug` object injects directly to a `Controller`.
 
 TODO:
- * ItemSlug
- * property inheritance
+ * Admin extends User
+ * CRUD Brand

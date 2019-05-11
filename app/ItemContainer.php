@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemContainer extends Model
 {
-    protected $with = ['items'];
+    protected $with = ['items', 'brand'];
 
     public $timestamps = false;
 
@@ -17,4 +17,10 @@ class ItemContainer extends Model
         return $this->hasMany('App\Item', 'container_id', 'id');
     }
 
+    /**
+     * @return App\Brand
+     */
+    public function brand() {
+        return $this->hasOne('App\Brand', 'id', 'brand_id');
+    }
 }

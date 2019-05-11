@@ -20,7 +20,7 @@ class CreateItemContainersTable extends Migration
         });
 
         Schema::table('item_containers', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->nullable()->after('id');;
+            $table->unsignedBigInteger('category_id')->nullable()->after('id');
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }

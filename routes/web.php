@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
+Route::get('/item/{slug}', 'ItemController@show')->name('item.show');
 
 Auth::routes(['verify' => true]);
 

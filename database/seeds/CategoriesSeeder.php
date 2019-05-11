@@ -3,7 +3,7 @@
 use App\CategorySlug;
 use Illuminate\Database\Seeder;
 
-class CategoriesTableSeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -171,6 +171,5 @@ class CategoriesTableSeeder extends Seeder
             'value' => 'lsdnf32nls',
             'category_id' => $subId,
         ]);
-
     }
 }
