@@ -36,7 +36,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'value' => 'butiful',
+            'value' => 'beautiful',
             'category_id' => $subId,
         ]);
 
@@ -80,7 +80,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         CategorySlug::create([
-            'value' => '9asfklsdds',
+            'value' => 'sledgehammer',
             'category_id' => $subId,
         ]);
 

@@ -27,9 +27,16 @@ Standard Laravel authorisation system with user validation by email was extended
 Categories based on parent-child tree hierarchy, ordered by simple int value.
 Every category  has to have `slug` value. We can add infinity number of new `slugs` and request any of them. In case the `slug` obsolete, the app returns 301 redirection to the last one.
 
-`CategorySlug` object injects direct to a `Controller`.
+`CategorySlug` object injects directly to a `Controller`.
 
+## Goods model
 
+`Item` model contains a product entity. `ItemContainer` model contains any number of `Items`. It makes possible to combine similar products and inherit properties.
+
+`Category@containers` returns all `Containers` which located all way down through the hierarchy tree. 
+
+`CategorySlug` object injects directly to a `Controller`.
 
 TODO:
- * `ItemContainer` + `Item` models
+ * ItemSlug
+ * property inheritance

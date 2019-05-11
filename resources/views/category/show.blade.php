@@ -14,8 +14,18 @@
                             </div>
                         @endif
 
-                        Category controller
-                        <p>{{ $category }}</p>
+                        <h4>Категория: {{ $category->title }}</h4>
+                        @foreach ($category->containers as $container)
+                            <h3>Линейка: {{ $container->name }}</h3>
+                            <div class="ml-4">
+                                @foreach ($container->items as $item)
+                                    <p>{{ $item->name }}</p>
+                                    <p>{{ $item->article }}</p>
+                                    <p>{{ $item->price }}</p>
+                                @endforeach
+                            </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
