@@ -8,6 +8,8 @@ class Brand extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['name','description'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

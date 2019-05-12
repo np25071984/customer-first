@@ -22,7 +22,8 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', 'Admin\AdminController@dashboard')->name('admin.dashboard');
-    Route::get('/admin/categories', 'Admin\AdminController@categoriesList')->name('admin.categories.list');
+    Route::get('/admin/category', 'Admin\CategoryController@list')->name('admin.category.list');
+    Route::resource('/admin/brand', 'Admin\BrandController');
 });
 
 Route::group(['middleware' => 'verified'], function () {

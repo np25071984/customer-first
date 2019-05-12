@@ -13,10 +13,4 @@ class AdminController extends Controller
     {
         return view('admin/dashboard');
     }
-
-    public function categoriesList()
-    {
-        $categories = Category::Roots()->oldest('order')->with('children')->get();
-        return view('admin/categories_list', ['categories' => $categories]);
-    }
 }
