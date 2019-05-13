@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Brand;
+use App\BrandSlug;
 use App\Http\Requests\Admin\BrandStoreRequest;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class BrandController extends Controller
 {
@@ -38,11 +41,40 @@ class BrandController extends Controller
      */
     public function store(BrandStoreRequest $request)
     {
-        $brand = Brand::create([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
-        return redirect(route('brand.show' , $brand->id));
+        $slug = Str::slug($request->slug, '-');
+
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logoName = $logo->getClientOriginalName();
+            $destinationPath = public_path('/logo');
+            $logo->move($destinationPath, $logoName);
+        } else {
+            $logoName = null;
+        }
+
+        try {
+            \DB::beginTransaction();
+
+            $brand = Brand::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'logo' => $logoName,
+            ]);
+
+            BrandSlug::create([
+                'brand_id' => $brand->id,
+                'value' => $slug,
+            ]);
+
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+
+        $request->session()->flash('message', 'Новый бренд успешно добавлен!');
+
+        return redirect(route('admin.brand.show' , $brand->id));
     }
 
     /**
@@ -76,11 +108,51 @@ class BrandController extends Controller
      */
     public function update(BrandStoreRequest $request, Brand $brand)
     {
-        $brand->name = $request->name;
-        $brand->description = $request->description;
-        $brand->save();
+        if ($request->hasFile('logo')) {
+            if ($brand->logo && File::exists(public_path('/logo') . '/' . $brand->logo)) {
+                File::delete('logo/' . '/' . $brand->logo);
+            }
+
+            $logo = $request->file('logo');
+            $logoName = $logo->getClientOriginalName();
+            $destinationPath = public_path('/logo');
+            $logo->move($destinationPath, $logoName);
+        } else {
+            if ($request->remove && File::exists(public_path('/logo') . '/' . $brand->logo)) {
+                File::delete('logo/' . '/' . $brand->logo);
+            }
+
+            $logoName = null;
+        }
+
+        try {
+            \DB::beginTransaction();
+
+            $slug = Str::slug($request->slug, '-');
+
+            if ($slug !== $brand->slug->value) {
+                BrandSlug::create([
+                    'brand_id' => $brand->id,
+                    'value' => $slug,
+                ]);
+            }
+
+            $brand->name = $request->name;
+            $brand->description = $request->description;
+            if ($logoName || $request->remove) {
+                $brand->logo = $logoName;
+            }
+            $brand->save();
+
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+
         $request->session()->flash('message', 'Изменения успешно сохранены!');
-        return redirect(route('brand.index'));
+
+        return redirect(route('admin.brand.show' , $brand->id));
     }
 
     /**
@@ -91,8 +163,30 @@ class BrandController extends Controller
      */
     public function destroy(Request $request, Brand $brand)
     {
-        $brand->delete();
-        $request->session()->flash('message', 'Бренд успешно удален!');
-        return redirect(route('brand.index'));
+        if ($brand->logo && File::exists(public_path('/logo') . '/' . $brand->logo)) {
+            $logoName = $brand->logo;
+        } else {
+            $logoName = null;
+        }
+        try {
+            \DB::beginTransaction();
+
+            $brand->delete();
+
+            BrandSlug::where('brand_id', $brand->id)->delete();
+
+            $request->session()->flash('message', 'Бренд успешно удален!');
+
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+
+        if ($logoName) {
+            File::delete(public_path('/logo') . '/' . $logoName);
+        }
+
+        return redirect(route('admin.brand.index'));
     }
 }

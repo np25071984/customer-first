@@ -13,6 +13,8 @@ class BrandSlug extends Model
      */
     protected $table = 'brands_slug';
 
+    protected $fillable = ['brand_id', 'value'];
+
     public $timestamps = false;
 
     public function getRouteKeyName() {

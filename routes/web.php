@@ -17,13 +17,14 @@ Route::get('/', function () {
 
 Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
 Route::get('/item/{slug}', 'ItemController@show')->name('item.show');
+Route::get('/brand/{slug}', function () { die('brand.show'); })->name('brand.show');
 
 Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin', 'Admin\AdminController@dashboard')->name('admin.dashboard');
-    Route::get('/admin/category', 'Admin\CategoryController@list')->name('admin.category.list');
-    Route::resource('/admin/brand', 'Admin\BrandController');
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('', 'Admin\AdminController@dashboard')->name('dashboard');
+    Route::get('/category', 'Admin\CategoryController@list')->name('category.list');
+    Route::resource('/brand', 'Admin\BrandController');
 });
 
 Route::group(['middleware' => 'verified'], function () {

@@ -52,5 +52,4 @@ Simple `Brand` model.
 `ItemSlug` object injects directly to a `Controller`.
 
 TODO:
- * Admin extends User
- * CRUD Brand
+ * Add logo to Brand model

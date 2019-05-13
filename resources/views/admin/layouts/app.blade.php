@@ -18,8 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-    </style>
+    <link href="{{ URL::asset('css/admin.css') }}" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel mb-4">
@@ -65,7 +64,7 @@
     <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
 
-<div class="container">
+<div class="container" id="app">
 
     <div class="row mb-4">
 
@@ -73,8 +72,8 @@
             <div class="list-group">
                 <a href="{{ route('admin.category.list') }}"
                     class="list-group-item {{ Route::current()->getName() == 'admin.category.list' ? 'active' : '' }}">Категории</a>
-                <a href="{{ route('brand.index') }}"
-                    class="list-group-item {{ Route::current()->getName() == 'brand.index' ? 'active' : '' }}">Бренды</a>
+                <a href="{{ route('admin.brand.index') }}"
+                    class="list-group-item {{ Route::current()->getName() == 'admin.brand.index' ? 'active' : '' }}">Бренды</a>
                 <a href="#" class="list-group-item">Контейнеры</a>
             </div>
         </div>
@@ -92,6 +91,8 @@
     </footer>
 
 </div><!--/.container-->
+
+@yield('js')
 
 </body>
 </html>
