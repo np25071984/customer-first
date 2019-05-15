@@ -45,7 +45,7 @@ class BrandController extends Controller
 
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $logoName = $logo->getClientOriginalName();
+            $logoName = $request->filename;
             $destinationPath = public_path('/logo');
             $logo->move($destinationPath, $logoName);
         } else {
@@ -114,15 +114,26 @@ class BrandController extends Controller
             }
 
             $logo = $request->file('logo');
-            $logoName = $logo->getClientOriginalName();
+            $logoName = $request->filename;
             $destinationPath = public_path('/logo');
             $logo->move($destinationPath, $logoName);
         } else {
-            if ($request->remove && File::exists(public_path('/logo') . '/' . $brand->logo)) {
-                File::delete('logo/' . '/' . $brand->logo);
+            if ($request->remove) {
+                // remove logo file
+                if (File::exists(public_path('/logo') . '/' . $brand->logo)) {
+                    File::delete('logo/' . '/' . $brand->logo);
+                }
+                $logoName = null;
+            } elseif ($request->filename !== $brand->logo) {
+                // rename logo file
+                if (File::exists(public_path('/logo') . '/' . $brand->logo)) {
+                    File::move(
+                        public_path('/logo') . '/' . $brand->logo,
+                        public_path('/logo') . '/' . $request->filename
+                    );
+                }
+                $logoName = $request->filename;
             }
-
-            $logoName = null;
         }
 
         try {

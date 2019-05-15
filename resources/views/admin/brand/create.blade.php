@@ -40,13 +40,18 @@
         <div class="form-group">
             <label for="logo">Логотип</label>
             <div>
+                <input type="text" name="filename" id="filename" class="form-control mb-3 d-none" />
                 <img id="preview" src="{{asset('logo/noimage.jpeg')}}" />
                 <input type="file" name="logo" id="logo" class="d-none" onChange="refreshLogo(this)" />
                 <br/>
                 <a href="javascript:changeLogo();">Изменить</a> |
                 <a style="color: red" href="javascript:removeLogo()">Удалить</a>
 
-                <div>{{ $errors->first('logo') }}</div>
+                @if ($errors->has('logo'))
+                    <div class="invalid-feedback d-block">{{ $errors->first('logo') }}</div>
+                @elseif ($errors->has('filename'))
+                    <div class="invalid-feedback d-block">{{ $errors->first('filename') }}</div>
+                @endif
             </div>
         </div>
 
@@ -62,9 +67,12 @@
         function refreshLogo(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
+                reader.filename = input.files[0].name;
 
                 reader.onload = function (e) {
                     document.getElementById("preview").src = e.target.result;
+                    document.getElementById("filename").value = e.target.filename;
+                    document.getElementById("filename").classList.remove("d-none");
                 };
 
                 var imgPath = input.value;
@@ -78,6 +86,8 @@
             }
         };
         function removeLogo() {
+            document.getElementById("filename").value = '';
+            document.getElementById("filename").classList.add("d-none");
             document.getElementById("preview").src = '/logo/noimage.jpeg';
             document.getElementById("logo").value = '';
         }

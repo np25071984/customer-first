@@ -29,6 +29,7 @@ class BrandStoreRequest extends FormRequest
             'name' => 'required|min:3|unique:brands,name' . ($brand ? ",{$brand->id},id" : ''),
             'slug' => 'required|max:150|unique:brands_slug,value' . ($brand ? ",{$brand->slug->id},id" : ''),
             'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'filename' => 'nullable|unique:brands,logo' . ($brand ? ",{$brand->id},id" : ''),
         ];
     }
 
@@ -49,6 +50,7 @@ class BrandStoreRequest extends FormRequest
             'logo.mimes' => 'Допускаются только файлы формата jpeg, png и gif',
             'logo.max' => 'Файл логотипа слишком большой. Оптимизируйте его размер и повторите попытку.',
             'logo.unique' => 'Файл логатипа с аналогичным названием уже существует в системе',
+            'filename.unique' => 'Логотип с указанным имененм уже существует!',
         ];
     }
 
