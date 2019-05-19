@@ -13,9 +13,18 @@ Test repository for educational purposes only.
 
 ## Dev environment
 
-Three docker containers: php-fpm, mysql, nginx. Local storage with configs and source code. Composer runs from one more container and returns result to host system. So, the host is completely free from development software and contain a text editor only.
+Three docker containers: `php-fpm`, `mysql`, `nginx`. Local storage with configs and source code. 
+
+
+Run composer from another container:
 
 `docker run --rm -v $(pwd):/app composer update`
+
+Run npm from another one:
+
+`docker run -it --rm -u "node:node" -v "$PWD":/app -w /app node:latest npm run dev`
+
+The host is completely free from development software and contain a text editor only.
 
 ## Autherization system
 
@@ -52,4 +61,9 @@ Simple `Brand` model.
 `ItemSlug` object injects directly to a `Controller`.
 
 TODO:
- * Add logo to Brand model
+ * Image model
+    - id
+    - path
+    - slug
+    
+ * ImageController with resizing function

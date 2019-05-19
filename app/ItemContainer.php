@@ -10,6 +10,8 @@ class ItemContainer extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['name', 'description', 'category_id', 'brand_id'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -22,5 +24,12 @@ class ItemContainer extends Model
      */
     public function brand() {
         return $this->hasOne('App\Brand', 'id', 'brand_id');
+    }
+
+    /**
+     * @return App\Brand
+     */
+    public function category() {
+        return $this->hasOne('App\Category', 'id', 'category_id');
     }
 }

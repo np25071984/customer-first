@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -74,7 +75,8 @@
                     class="list-group-item {{ Route::current()->getName() == 'admin.category.list' ? 'active' : '' }}">Категории</a>
                 <a href="{{ route('admin.brand.index') }}"
                     class="list-group-item {{ Route::current()->getName() == 'admin.brand.index' ? 'active' : '' }}">Бренды</a>
-                <a href="#" class="list-group-item">Контейнеры</a>
+                <a href="{{ route('admin.container.index') }}"
+                    class="list-group-item {{ Route::current()->getName() == 'admin.container.index' ? 'active' : '' }}">Контейнеры</a>
             </div>
         </div>
 
@@ -87,12 +89,10 @@
     <hr>
 
     <footer>
-        <p>&copy; Company 2019</p>
+        <p>&copy; Customer first 2019</p>
     </footer>
 
 </div><!--/.container-->
-
-@yield('js')
 
 </body>
 </html>

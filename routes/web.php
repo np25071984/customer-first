@@ -25,6 +25,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
     Route::get('', 'Admin\AdminController@dashboard')->name('dashboard');
     Route::get('/category', 'Admin\CategoryController@list')->name('category.list');
     Route::resource('/brand', 'Admin\BrandController');
+    Route::resource('/container', 'Admin\ItemContainerController');
 });
 
 Route::group(['middleware' => 'verified'], function () {
