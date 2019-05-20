@@ -8,6 +8,8 @@ class Item extends Model
 {
     protected $with = ['slug'];
 
+    protected $fillable = ['name', 'description', 'container_id', 'price', 'article'];
+
     /**
      * Gets actual slug
      *

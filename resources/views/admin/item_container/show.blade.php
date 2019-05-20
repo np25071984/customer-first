@@ -47,4 +47,43 @@
         </form>
     </div>
 
+    <hr class="mt-5" style="clear: right;" />
+
+    <h1>Товары</h1>
+
+    <a class="float-right mb-4" href="{{ route('admin.item.create', $container->id) }}">
+        <button type="button" class="btn btn-primary">Создать</button>
+    </a>
+    <table class="table">
+        <thead>
+        <th>Название производителя</th>
+        <th class="text-center">Функции</th>
+        </thead>
+        <tbody>
+        @foreach ($container->items as $item)
+            <tr>
+                <td> {{ $item->name }}</td>
+                <td class="text-center">
+                    <div class="btn-group" role="group">
+                        <a href="{{ route('admin.item.show', $item->id) }}" class="btn btn-primary" role="button">
+                            Показать
+                        </a>
+                        <a href="{{ route('admin.item.edit', $item->id) }}" class="btn btn-primary" role="button">
+                            Изменить
+                        </a>
+                    </div>
+                    <form class="d-inline"
+                          action="{{ route('admin.item.destroy', $item->id) }}"
+                          method="POST"
+                          onsubmit="return confirm('Вы уверены что хотите удалить запись?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="submit" class="btn btn-danger" value="Удалить"/>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+
 @endsection

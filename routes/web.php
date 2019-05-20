@@ -23,9 +23,18 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('', 'Admin\AdminController@dashboard')->name('dashboard');
+
     Route::get('/category', 'Admin\CategoryController@list')->name('category.list');
-    Route::resource('/brand', 'Admin\BrandController');
-    Route::resource('/container', 'Admin\ItemContainerController');
+
+    Route::resources([
+        'brand' => 'Admin\BrandController',
+        'container' => 'Admin\ItemContainerController',
+    ]);
+
+    Route::resource('/item', 'Admin\ItemController')->except(['index', 'create']);
+    Route::get('/item/create/{container}', 'Admin\ItemController@create')->name('item.create');
+
+    Route::get('/category', 'Admin\CategoryController@list')->name('category.list');
 });
 
 Route::group(['middleware' => 'verified'], function () {
