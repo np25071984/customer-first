@@ -3,12 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Item extends Model
 {
     protected $with = ['slug'];
 
     protected $fillable = ['name', 'description', 'container_id', 'price', 'article'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Item $item) {
+            foreach($item->images as $image) {
+                $image->delete();
+            }
+
+            File::deleteDirectory(public_path("/img/{$item->id}/"));
+        });
+    }
 
     /**
      * Gets actual slug

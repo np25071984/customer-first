@@ -12,6 +12,18 @@ class ItemContainer extends Model
 
     protected $fillable = ['name', 'description', 'category_id', 'brand_id'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (ItemContainer $container) {
+            foreach($container->items as $item) {
+                $item->delete();
+            }
+        });
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
