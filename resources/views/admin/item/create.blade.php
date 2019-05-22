@@ -1,10 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
     <h1>Создание нового товара</h1>
     <hr>
-    <form action="{{ route('admin.item.store') }}" method="POST">
+    <form action="{{ route('admin.item.store') }}" method="POST" enctype="multipart/form-data">
 
         {{ csrf_field() }}
 
@@ -47,6 +46,18 @@
                    name="price"
                    required
                    value="{{ old('price') }}">
+
+            <div class="invalid-feedback">{{ $errors->first('price') }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Иозображения</label>
+            <div>
+                <div id="images">
+
+                </div>
+                <button class="btn btn-primary" onclick="window.addImage('images'); return false;">Добавить</button>
+            </div>
 
             <div class="invalid-feedback">{{ $errors->first('price') }}</div>
         </div>

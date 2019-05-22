@@ -53,6 +53,10 @@
         <div class="col-8">{{ $item->price }}</div>
     </div>
 
+    @foreach ($item->images as $image)
+        <img src="/img/{{ $item->id }}/{{ $image->src }}" /><br /><br />
+    @endforeach
+
     <div class="float-right">
         <a href="{{ route('admin.item.edit', $item->id) }}" class="btn btn-primary" role="button">
             Изменить

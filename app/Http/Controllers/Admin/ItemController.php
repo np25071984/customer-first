@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Item;
+use App\ItemImage;
 use App\ItemContainer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,13 +29,36 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = Item::create([
-            'container_id' => $request->container_id,
-            'article' => $request->article,
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-        ]);
+
+        try {
+            \DB::beginTransaction();
+
+            $item = Item::create([
+                'container_id' => $request->container_id,
+                'article' => $request->article,
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+            ]);
+
+            if($request->hasFile('image')) {
+                $files = $request->file('image');
+                foreach ($files as $id => $file) {
+                    ItemImage::create([
+                        'item_id' => $item->id,
+                        'src' => $request->filename[$id],
+                    ]);
+
+                    $destinationPath = public_path("/img/{$item->id}/");
+                    $file->move($destinationPath, $request->filename[$id]);
+                }
+            }
+
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
 
         $request->session()->flash('message', 'Новый товар успешно добавлен!');
 

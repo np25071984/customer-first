@@ -124,11 +124,107 @@ window.removeLogo = function () {
   var setRemove = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   document.getElementById("filename").value = '';
   document.getElementById("filename").classList.add("d-none");
-  document.getElementById("preview").src = '/logo/noimage.jpeg';
+  document.getElementById("preview").src = '/noimage.jpeg';
 
   if (setRemove) {
     document.getElementById("remove").value = 1;
   }
+};
+
+window.changeImage = function (elementId) {
+  document.querySelector("div#".concat(elementId, " > input[type=file]")).click();
+};
+
+window.refreshImage = function (input) {
+  if (input.files && input.files[0]) {
+    var elementId = input.parentNode.id;
+    var reader = new FileReader();
+    reader.filename = input.files[0].name;
+
+    reader.onload = function (e) {
+      document.querySelector("div#".concat(elementId, " > img")).src = e.target.result;
+      var inputText = document.querySelector("div#".concat(elementId, " > input[type=text]"));
+      inputText.value = e.target.filename;
+      inputText.classList.remove("d-none");
+    };
+
+    var imgPath = input.value;
+    var ext = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+
+    if (ext == "gif" || ext == "png" || ext == "jpg" || ext == "jpeg") {
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      input.value = '';
+      alert('Принимаются только файлы форматов gif, png и jpg');
+    }
+  }
+};
+
+window.removeImage = function (elementId) {
+  var element = document.getElementById(elementId);
+  element.parentNode.removeChild(element);
+};
+
+window.addImage = function (parentId) {
+  var parent = document.getElementById(parentId);
+  var position = null;
+  var lastChild = parent.lastChild;
+
+  if (lastChild) {
+    position = parseInt(lastChild.id.split('-')[1]) + 1;
+  } else {
+    position = 1;
+  }
+
+  var elementId = 'image-' + position;
+  var inputFile = document.createElement("INPUT");
+  inputFile.type = "file";
+  inputFile.name = "image[".concat(position, "]");
+
+  inputFile.onchange = function () {
+    window.refreshImage(this);
+  };
+
+  inputFile.classList.add("d-none");
+  var inputText = document.createElement("INPUT");
+  inputText.type = "text";
+  inputText.name = "filename[".concat(position, "]");
+  inputText.classList.add("form-control");
+  inputText.classList.add("mb-3");
+  inputText.classList.add("d-none");
+  var imageDiv = document.createElement("DIV");
+  imageDiv.classList.add("mb-4");
+  imageDiv.id = elementId;
+  var img = document.createElement("IMG");
+  img.src = '/noimage.jpeg';
+  var br = document.createElement("BR");
+  var changeLink = document.createElement("A");
+  changeLink.href = "#";
+
+  changeLink.onclick = function () {
+    window.changeImage(elementId);
+  };
+
+  var changeText = document.createTextNode("Изменить");
+  changeLink.appendChild(changeText);
+  var seporatorText = document.createTextNode(" | ");
+  var removeLink = document.createElement("A");
+  removeLink.href = "#";
+  var removeText = document.createTextNode("Удалить");
+  removeLink.appendChild(removeText);
+
+  removeLink.onclick = function () {
+    window.removeImage(elementId);
+  };
+
+  imageDiv.appendChild(inputFile);
+  imageDiv.appendChild(inputText);
+  imageDiv.appendChild(img);
+  imageDiv.appendChild(br);
+  imageDiv.appendChild(changeLink);
+  imageDiv.appendChild(seporatorText);
+  imageDiv.appendChild(removeLink);
+  parent.appendChild(imageDiv);
 };
 
 /***/ }),

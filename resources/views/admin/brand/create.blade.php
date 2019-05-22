@@ -41,7 +41,7 @@
             <label for="logo">Логотип</label>
             <div>
                 <input type="text" name="filename" id="filename" class="form-control mb-3 d-none" />
-                <img id="preview" src="{{asset('logo/noimage.jpeg')}}" />
+                <img id="preview" src="{{asset('noimage.jpeg')}}" />
                 <input type="file" name="logo" id="logo" class="d-none" onChange="window.refreshLogo(this)" />
                 <br/>
                 <a href="javascript:window.changeLogo();">Изменить</a> |

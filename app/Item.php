@@ -27,4 +27,11 @@ class Item extends Model
         return $this->belongsTo('App\ItemContainer', 'container_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images() {
+        return $this->hasMany('App\ItemImage', 'item_id', 'id');
+    }
+
 }

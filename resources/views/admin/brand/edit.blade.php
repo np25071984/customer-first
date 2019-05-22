@@ -46,7 +46,7 @@
                     <img id="preview" src="/logo/{{ $brand->logo }}" />
                 @else
                     <input type="text" name="filename" id="filename" class="form-control mb-3 d-none" />
-                    <img id="preview" src="{{ asset('logo/noimage.jpeg') }}" />
+                    <img id="preview" src="{{ asset('noimage.jpeg') }}" />
                 @endif
 
                 <input type="file" name="logo" id="logo" class="d-none" onChange="window.refreshLogo(this)" />
