@@ -51,7 +51,7 @@
         </div>
 
         <div class="form-group">
-            <label for="name">Иозображения</label>
+            <label for="name">Изображения</label>
             <div>
                 <div id="images">
 

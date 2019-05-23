@@ -96,11 +96,39 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        $item->name = $request->name;
-        $item->article = $request->article;
-        $item->description = $request->description;
-        $item->price = $request->price;
-        $item->save();
+        try {
+            \DB::beginTransaction();
+
+            $item->name = $request->name;
+            $item->article = $request->article;
+            $item->description = $request->description;
+            $item->price = $request->price;
+            $item->save();
+
+            if($request->hasFile('image')) {
+                $files = $request->file('image');
+                foreach ($files as $id => $file) {
+                    ItemImage::create([
+                        'item_id' => $item->id,
+                        'src' => $request->filename[$id],
+                    ]);
+
+                    $destinationPath = public_path("/img/{$item->id}/");
+                    $file->move($destinationPath, $request->filename[$id]);
+                }
+            }
+
+            \DB::commit();
+        } catch(\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+
+        if ($request->has('remove')) {
+            foreach ($request->remove as $imgId) {
+                ItemImage::find($imgId)->delete();
+            }
+        }
 
         $request->session()->flash('message', 'Изменения успешно сохранены!');
 

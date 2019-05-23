@@ -4,7 +4,7 @@
 
     <h1>Редактирование бренда</h1>
     <hr>
-    <form action="{{ route('admin.item.update', $item->id)}}" method="POST">
+    <form action="{{ route('admin.item.update', $item->id)}}" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" name="_method" value="PUT">
 
@@ -47,6 +47,23 @@
                    name="price"
                    required
                    value="{{ $item->price }}">
+
+            <div class="invalid-feedback">{{ $errors->first('price') }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Изображения</label>
+            <div>
+                <div id="images">
+                    @foreach ($item->images as $id => $image)
+                        <div class="mb-4" id="image-{{ $id + 1 }}">
+                            <img src="/img/{{ $item->id }}/{{ $image->src }}" /><br />
+                            <a href="#" onclick="window.removeExistedImage(this, {{ $image->id }}); return false;">Удалить</a>
+                        </div>
+                    @endforeach
+                </div>
+                <button class="btn btn-primary" onclick="window.addImage('images'); return false;">Добавить</button>
+            </div>
 
             <div class="invalid-feedback">{{ $errors->first('price') }}</div>
         </div>

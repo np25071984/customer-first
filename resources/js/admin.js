@@ -127,3 +127,16 @@ window.addImage = function (parentId) {
 
     parent.appendChild(imageDiv);
 }
+
+window.removeExistedImage = function(obj, imageId) {
+    const imageWrapper = obj.parentNode;
+    const parent = imageWrapper.parentNode;
+    parent.removeChild(imageWrapper);
+
+    const inputHidden = document.createElement("INPUT");
+    inputHidden.type = "hidden";
+    inputHidden.name = `remove[]`;
+    inputHidden.value = imageId;
+
+    parent.appendChild(inputHidden);
+}

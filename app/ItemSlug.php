@@ -20,7 +20,7 @@ class ItemSlug extends Model
     }
 
     /**
-     * @return App\Category
+     * @return App\Item
      */
     public function item() {
         return $this->belongsTo('App\Item', 'item_id', 'id');

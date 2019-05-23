@@ -227,6 +227,17 @@ window.addImage = function (parentId) {
   parent.appendChild(imageDiv);
 };
 
+window.removeExistedImage = function (obj, imageId) {
+  var imageWrapper = obj.parentNode;
+  var parent = imageWrapper.parentNode;
+  parent.removeChild(imageWrapper);
+  var inputHidden = document.createElement("INPUT");
+  inputHidden.type = "hidden";
+  inputHidden.name = "remove[]";
+  inputHidden.value = imageId;
+  parent.appendChild(inputHidden);
+};
+
 /***/ }),
 
 /***/ 1:
