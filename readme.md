@@ -60,8 +60,12 @@ Simple `Brand` model.
 
 `ItemSlug` object injects directly to a `Controller`.
 
+## Image resizing on fly
+
+All original images store inside `storage` directory. When a specific image with certain dimension required by browser, `nginx`/`apache` check if the image exists in public directory and, if so, just return it. If the image doesn't exists, `ImageController` do image resizing, put the image to public and redirects to it.
+
+By this way we can get any image size at any time out of original and keep those resized images separately, so that we don't need do it twice.
+
 TODO:
 
- * remove orig images from public folder
- 
- * ImageController with resizing function
+ * clear resized images after original one has been deleted
