@@ -27,4 +27,16 @@ class Brand extends Model
         return $this->hasOne('App\BrandSlug', 'brand_id', 'id')->latest();
     }
 
+    /**
+     * Returns logo src with given dimension
+     *
+     * @return string
+     */
+    public function getLogoSrc($height, $width) {
+        $origSrc = $this->logo;
+        $pathInfo = pathinfo($origSrc);
+        $src = "{$pathInfo['filename']}-{$height}x{$width}.{$pathInfo['extension']}";
+
+        return "/logo/{$src}";
+    }
 }

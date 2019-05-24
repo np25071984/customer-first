@@ -43,7 +43,7 @@
             <div>
                 @if ($brand->logo)
                     <input type="text" name="filename" id="filename" class="form-control mb-3" value="{{ $brand->logo }}"/>
-                    <img id="preview" src="/logo/{{ $brand->logo }}" />
+                    <img id="preview" src="{{ $brand->getLogoSrc(250, 250) }}" />
                 @else
                     <input type="text" name="filename" id="filename" class="form-control mb-3 d-none" />
                     <img id="preview" src="{{ asset('noimage.jpeg') }}" />

@@ -40,3 +40,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
 Route::group(['middleware' => 'verified'], function () {
     Route::get('/dashboard', 'User\UserController@dashboard')->name('user.dashboard');
 });
+
+Route::get('/create-item-image/{file}', 'ImageController@createItemImage')->name('item.image.create');
+Route::get('/create-brand-logo/{file}', 'ImageController@createBrandLogo')->name('brand.logo.create');

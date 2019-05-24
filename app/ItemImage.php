@@ -15,7 +15,7 @@ class ItemImage extends Model
 
         static::deleting(function (ItemImage $image) {
             $item = $image->item;
-            File::delete(public_path("/img/{$item->id}/{$image->src}"));
+            File::delete(storage_path("item_image_orig/{$item->id}/{$image->src}"));
         });
     }
 
@@ -26,4 +26,16 @@ class ItemImage extends Model
         return $this->belongsTo('App\Item', 'item_id', 'id');
     }
 
+    /**
+     * Returns image src with given dimension
+     *
+     * @return string
+     */
+    public function getSrc($height, $width) {
+        $origSrc = $this->src;
+        $pathInfo = pathinfo($origSrc);
+        $src = "{$pathInfo['filename']}-{$height}x{$width}.{$pathInfo['extension']}";
+
+        return "/item_img/{$src}";
+    }
 }

@@ -24,7 +24,7 @@
         </div>
         <div class="col-8">
             @if ($brand->logo)
-                <img src="/logo/{{ $brand->logo }}" />
+                <img src="{{ $brand->getLogoSrc(250, 250) }}" />
             @endif
         </div>
     </div>

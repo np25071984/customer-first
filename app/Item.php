@@ -20,7 +20,7 @@ class Item extends Model
                 $image->delete();
             }
 
-            File::deleteDirectory(public_path("/img/{$item->id}/"));
+            File::deleteDirectory(storage_path("item_image_orig/{$item->id}"));
         });
     }
 

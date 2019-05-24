@@ -49,7 +49,7 @@ class ItemController extends Controller
                         'src' => $request->filename[$id],
                     ]);
 
-                    $destinationPath = public_path("/img/{$item->id}/");
+                    $destinationPath = storage_path("item_image_orig/{$item->id}");
                     $file->move($destinationPath, $request->filename[$id]);
                 }
             }
@@ -113,7 +113,7 @@ class ItemController extends Controller
                         'src' => $request->filename[$id],
                     ]);
 
-                    $destinationPath = public_path("/img/{$item->id}/");
+                    $destinationPath = storage_path("item_image_orig/{$item->id}");
                     $file->move($destinationPath, $request->filename[$id]);
                 }
             }

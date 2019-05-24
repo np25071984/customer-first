@@ -57,7 +57,7 @@
                 <div id="images">
                     @foreach ($item->images as $id => $image)
                         <div class="mb-4" id="image-{{ $id + 1 }}">
-                            <img src="/img/{{ $item->id }}/{{ $image->src }}" /><br />
+                            <img src="{{ $image->getSrc(250, 250) }}" /><br />
                             <a href="#" onclick="window.removeExistedImage(this, {{ $image->id }}); return false;">Удалить</a>
                         </div>
                     @endforeach

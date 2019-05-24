@@ -61,9 +61,7 @@ Simple `Brand` model.
 `ItemSlug` object injects directly to a `Controller`.
 
 TODO:
- * Image model
-    - id
-    - path
-    - slug
-    
+
+ * remove orig images from public folder
+ 
  * ImageController with resizing function

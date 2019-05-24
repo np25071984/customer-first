@@ -46,7 +46,7 @@ class BrandController extends Controller
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $logoName = $request->filename;
-            $destinationPath = public_path('/logo');
+            $destinationPath = storage_path('/brand_logo_orig/');
             $logo->move($destinationPath, $logoName);
         } else {
             $logoName = null;
@@ -108,28 +108,29 @@ class BrandController extends Controller
      */
     public function update(BrandStoreRequest $request, Brand $brand)
     {
+        $logopath = storage_path("/brand_logo_orig/{$brand->logo}");
         if ($request->hasFile('logo')) {
-            if ($brand->logo && File::exists(public_path('/logo') . '/' . $brand->logo)) {
-                File::delete('logo/' . '/' . $brand->logo);
+            if ($brand->logo && File::exists($logopath)) {
+                File::delete($logopath);
             }
 
             $logo = $request->file('logo');
             $logoName = $request->filename;
-            $destinationPath = public_path('/logo');
+            $destinationPath = storage_path('/brand_logo_orig/');
             $logo->move($destinationPath, $logoName);
         } else {
             if ($request->remove) {
                 // remove logo file
-                if (File::exists(public_path('/logo') . '/' . $brand->logo)) {
-                    File::delete('logo/' . '/' . $brand->logo);
+                if (File::exists($logopath)) {
+                    File::delete($logopath);
                 }
                 $logoName = null;
             } elseif ($request->filename !== $brand->logo) {
                 // rename logo file
-                if (File::exists(public_path('/logo') . '/' . $brand->logo)) {
+                if (File::exists($logopath)) {
                     File::move(
-                        public_path('/logo') . '/' . $brand->logo,
-                        public_path('/logo') . '/' . $request->filename
+                        $logopath,
+                        storage_path("/brand_logo_orig/{$request->filename}")
                     );
                 }
                 $logoName = $request->filename;
@@ -174,10 +175,9 @@ class BrandController extends Controller
      */
     public function destroy(Request $request, Brand $brand)
     {
-        if ($brand->logo && File::exists(public_path('/logo') . '/' . $brand->logo)) {
-            $logoName = $brand->logo;
-        } else {
-            $logoName = null;
+        $logopath = storage_path("/brand_logo_orig/{$brand->logo}");
+        if (!$brand->logo || !File::exists($logopath)) {
+            $logopath = null;
         }
         try {
             \DB::beginTransaction();
@@ -194,8 +194,8 @@ class BrandController extends Controller
             throw $e;
         }
 
-        if ($logoName) {
-            File::delete(public_path('/logo') . '/' . $logoName);
+        if ($logopath) {
+            File::delete($logopath);
         }
 
         return redirect(route('admin.brand.index'));
