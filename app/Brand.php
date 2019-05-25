@@ -10,6 +10,17 @@ class Brand extends Model
 
     protected $fillable = ['name', 'description', 'logo'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Brand $brand) {
+            foreach ($brand->containers as $container) {
+                $container->delete();
+            }
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

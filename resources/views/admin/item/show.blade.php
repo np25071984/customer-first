@@ -8,14 +8,14 @@
         <div class="col-4 text-right">
             <strong>Название контейнера</strong>
         </div>
-        <div class="col-8">{{ $item->container->name }}</div>
+        <div class="col-8"><a href="{{ route('admin.container.show', $item->container->id) }}">{{ $item->container->name }}</a></div>
     </div>
 
     <div class="row">
         <div class="col-4 text-right">
             <strong>Название бренда</strong>
         </div>
-        <div class="col-8">{{ $item->container->brand->name }}</div>
+        <div class="col-8"><a href="{{ route('admin.brand.show', $item->container->brand->id) }}">{{ $item->container->brand->name }}</a></div>
     </div>
 
     <div class="row">
