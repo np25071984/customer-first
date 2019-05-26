@@ -7,6 +7,7 @@ use App\Category;
 use App\ItemContainer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ItemContainerStoreRequest;
 
 class ItemContainerController extends Controller
 {
@@ -39,7 +40,7 @@ class ItemContainerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemContainerStoreRequest $request)
     {
         $containter = ItemContainer::create([
             'brand_id' => $request->brand_id,
@@ -84,7 +85,7 @@ class ItemContainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ItemContainer $container)
+    public function update(ItemContainerStoreRequest $request, ItemContainer $container)
     {
         $container->brand_id = $request->brand_id;
         $container->category_id = $request->category_id;

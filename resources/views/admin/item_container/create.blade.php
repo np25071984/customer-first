@@ -12,9 +12,9 @@
             <label for="name">Категория</label>
             <select name="category_id"
                     class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}">
-                <option value="" disabled selected>Выберите категорию товара</option>
+                <option value="" disabled{{  old('category_id') ? '' : ' selected' }}>Выберите категорию товара</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                    <option value="{{ $category->id }}"{{  old('category_id') === $category->id ? ' selected' : '' }}>{{ $category->title }}</option>
                     @foreach ($category->children as $child)
                         <option value="{{ $child->id }}">&nbsp;&nbsp;&nbsp;&nbsp;{{ $child->title }}</option>
                     @endforeach
@@ -28,9 +28,9 @@
             <label for="name">Производитель</label>
             <select name="brand_id"
                     class="form-control{{ $errors->has('brand_id') ? ' is-invalid' : '' }}">
-                <option value="" disabled selected>Выберите производителя</option>
+                <option value="" disabled{{  old('brand_id') ? '' : ' selected' }}>Выберите производителя</option>
                 @foreach ($brands as $brand)
-                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                    <option value="{{ $brand->id }}"{{  old('brand_id') === $brand->id ? ' selected' : '' }}>{{ $brand->name }}</option>
                 @endforeach
             </select>
 

@@ -15,7 +15,7 @@ class CreateItemContainersTable extends Migration
     {
         Schema::create('item_containers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description')->nullable();
         });
 
