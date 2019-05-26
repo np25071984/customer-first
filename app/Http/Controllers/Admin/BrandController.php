@@ -175,16 +175,12 @@ class BrandController extends Controller
      */
     public function destroy(Request $request, Brand $brand)
     {
-        $logopath = storage_path("/brand_logo_orig/{$brand->logo}");
-        if (!$brand->logo || !File::exists($logopath)) {
-            $logopath = null;
-        }
         try {
             \DB::beginTransaction();
 
-            $brand->delete();
-
             BrandSlug::where('brand_id', $brand->id)->delete();
+
+            $brand->delete();
 
             $request->session()->flash('message', 'Бренд успешно удален!');
 
@@ -192,10 +188,6 @@ class BrandController extends Controller
         } catch(\Throwable $e) {
             \DB::rollback();
             throw $e;
-        }
-
-        if ($logopath) {
-            File::delete($logopath);
         }
 
         return redirect(route('admin.brand.index'));

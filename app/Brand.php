@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
@@ -18,6 +19,16 @@ class Brand extends Model
             foreach ($brand->containers as $container) {
                 $container->delete();
             }
+
+            // delete the original logo image
+            $logopath = storage_path("brand_logo_orig/{$brand->logo}");
+            if (!$brand->logo || !File::exists($logopath)) {
+                File::delete($logopath);
+            }
+
+            // delete the resized logo images
+            $pathinfo = pathinfo(public_path("logo/{$brand->logo}"));
+            File::delete(File::glob("{$pathinfo['dirname']}/{$pathinfo['filename']}-*"));
         });
     }
 

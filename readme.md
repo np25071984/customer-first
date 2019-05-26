@@ -68,4 +68,4 @@ By this way we can get any image size at any time out of original and keep those
 
 TODO:
 
- * clear resized images after original one has been deleted
+ * create container validation when category or brand have not been chosen

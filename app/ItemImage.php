@@ -15,7 +15,13 @@ class ItemImage extends Model
 
         static::deleting(function (ItemImage $image) {
             $item = $image->item;
+
+            // delete the original image
             File::delete(storage_path("item_image_orig/{$item->id}/{$image->src}"));
+
+            // delete the resized images
+            $pathinfo = pathinfo(public_path("item_img/{$image->src}"));
+            File::delete(File::glob("{$pathinfo['dirname']}/{$pathinfo['filename']}-*"));
         });
     }
 
