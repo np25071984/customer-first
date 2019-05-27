@@ -40,6 +40,16 @@
             <div class="invalid-feedback">{{ $errors->first('description') }}</div>
         </div>
 
+        <div class="form-group required">
+            <label for="slug">Slug</label>
+            <input type="text"
+                   class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}"
+                   name="slug"
+                   value="{{ $item->slug->value }}">
+
+            <div class="invalid-feedback">{{ $errors->first('slug') }}</div>
+        </div>
+
         <div class="form-group">
             <label for="name">Цена</label>
             <input type="text"
@@ -65,7 +75,7 @@
                 <button class="btn btn-primary" onclick="window.addImage('images'); return false;">Добавить</button>
             </div>
 
-            <div class="invalid-feedback">{{ $errors->first('price') }}</div>
+            <div class="invalid-feedback">{{ $errors->first('image') }}</div>
         </div>
 
         <button type="submit" class="btn btn-primary float-right">Изменить</button>

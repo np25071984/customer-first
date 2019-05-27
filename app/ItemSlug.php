@@ -15,6 +15,8 @@ class ItemSlug extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['item_id', 'value'];
+
     public function getRouteKeyName() {
         return 'value';
     }

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Item;
+use App\ItemSlug;
 use App\ItemImage;
 use App\ItemContainer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ItemStoreRequest;
 
 class ItemController extends Controller
 {
@@ -27,8 +30,9 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemStoreRequest $request)
     {
+        $slug = Str::slug($request->slug, '-');
 
         try {
             \DB::beginTransaction();
@@ -39,6 +43,11 @@ class ItemController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
+            ]);
+
+            ItemSlug::create([
+                'item_id' => $item->id,
+                'value' => $slug,
             ]);
 
             if($request->hasFile('image')) {
@@ -94,10 +103,19 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(ItemStoreRequest $request, Item $item)
     {
+        $slug = Str::slug($request->slug, '-');
+
         try {
             \DB::beginTransaction();
+
+            if ($slug !== $item->slug->value) {
+                ItemSlug::create([
+                    'item_id' => $item->id,
+                    'value' => $slug,
+                ]);
+            }
 
             $item->name = $request->name;
             $item->article = $request->article;
