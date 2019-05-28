@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ItemImage;
+use App\NoImage;
 use App\Brand;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -61,6 +62,27 @@ class ImageController extends Controller
         $resizedImage->save(public_path("/logo/{$file}"));
 
         return redirect($brand->getLogoSrc($height, $width));
+    }
+
+    public function createPlaceholderImage($file)
+    {
+        $matches = [];
+        preg_match('/noimage-(\d{0,3}x\d{0,3})\.jpeg/', $file, $matches);
+        if (empty($matches)) {
+            abort(404);
+        }
+        list($height, $width) = array_map('intval', explode('x', $matches[1]));
+
+        // TODO: add dimension white list
+
+        $resizedImage = Image::make(storage_path("noimage.jpeg"));
+        $resizedImage->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        $resizedImage->save(public_path("/img/{$file}"));
+
+        return redirect("/img/{$file}");
     }
 
 }

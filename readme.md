@@ -68,3 +68,4 @@ By this way we can get any image size at any time out of original and keep those
 
 TODO:
 
+ * main page

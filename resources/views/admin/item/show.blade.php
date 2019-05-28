@@ -54,7 +54,7 @@
     </div>
 
     @foreach ($item->images as $image)
-        <img src="{{ $image->getSrc(250, 250) }}" /><br /><br />
+        <img src="{{ $image->getSrc(300, 300) }}" /><br /><br />
     @endforeach
 
     <div class="float-right">

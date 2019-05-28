@@ -43,16 +43,16 @@
             <div>
                 @if ($brand->logo)
                     <input type="text" name="filename" id="filename" class="form-control mb-3" value="{{ $brand->logo }}"/>
-                    <img id="preview" src="{{ $brand->getLogoSrc(250, 250) }}" />
+                    <img id="preview" src="{{ $brand->getLogoSrc(300, 300) }}" />
                 @else
                     <input type="text" name="filename" id="filename" class="form-control mb-3 d-none" />
-                    <img id="preview" src="{{ asset('noimage.jpeg') }}" />
+                    <img id="preview" width="300px" height="300px" class="img-fluid" src="/img/noimage-300x300.jpeg" />
                 @endif
 
                 <input type="file" name="logo" id="logo" class="d-none" onChange="window.refreshLogo(this)" />
                 <br />
                 <a href="javascript:window.changeLogo();">Изменить</a> |
-                <a style="color: red" href="javascript:window.removeLogo(true)">Удалить</a>
+                <a class="text-danger" href="javascript:window.removeLogo(true)">Удалить</a>
                 <input type="hidden" class="d-none" value="0" name="remove" id="remove">
 
                 @if ($errors->has('logo'))

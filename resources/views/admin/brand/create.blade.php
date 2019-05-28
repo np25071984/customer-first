@@ -41,11 +41,11 @@
             <label for="logo">Логотип</label>
             <div>
                 <input type="text" name="filename" id="filename" class="form-control mb-3 d-none" />
-                <img id="preview" src="{{asset('noimage.jpeg')}}" />
+                <img id="preview" width="300px" height="300px" class="img-fluid" src="/img/noimage-300x300.jpeg" />
                 <input type="file" name="logo" id="logo" class="d-none" onChange="window.refreshLogo(this)" />
                 <br/>
                 <a href="javascript:window.changeLogo();">Изменить</a> |
-                <a style="color: red" href="javascript:window.removeLogo()">Удалить</a>
+                <a class="text-danger" href="javascript:window.removeLogo()">Удалить</a>
 
                 @if ($errors->has('logo'))
                     <div class="invalid-feedback d-block">{{ $errors->first('logo') }}</div>

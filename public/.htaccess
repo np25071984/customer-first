@@ -19,6 +19,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^item_img/([0-9a-z_\-\.]+)$ /create-item-image/$1 [R,L]
     RewriteRule ^logo/([0-9a-z_\-\.]+)$ /create-brand-logo/$1 [R,L]
+    RewriteRule ^img/noimage-([0-9x]+).jpeg$ /create-placeholder-image/noimage-$1.jpeg [R,L]
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

@@ -27,7 +27,7 @@ window.refreshLogo = function(input) {
 window.removeLogo = function(setRemove = false) {
     document.getElementById("filename").value = '';
     document.getElementById("filename").classList.add("d-none");
-    document.getElementById("preview").src = '/noimage.jpeg';
+    document.getElementById("preview").src = '/img/noimage-200x200.jpeg';
     if (setRemove) {
         document.getElementById("remove").value = 1;
     }
@@ -99,7 +99,10 @@ window.addImage = function (parentId) {
     imageDiv.id = elementId;
 
     const img = document.createElement("IMG");
-    img.src = '/noimage.jpeg';
+    img.width = 300;
+    img.height = 300;
+    img.classList.add('img-fluid');
+    img.src = '/img/noimage-300x300.jpeg';
 
     const br = document.createElement("BR");
 

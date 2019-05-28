@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use App\NoImage;
 
 class Item extends Model
 {
@@ -46,6 +47,15 @@ class Item extends Model
      */
     public function images() {
         return $this->hasMany('App\ItemImage', 'item_id', 'id');
+    }
+
+    public function getTopImageSrc($height, $width) {
+        $image = $this->images->first();
+        if (!$image) {
+            $image = new NoImage();
+        }
+
+        return $image->getSrc($height, $width);
     }
 
 }

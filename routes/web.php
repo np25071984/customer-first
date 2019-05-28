@@ -12,8 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
+
+Route::get('/', 'MainController@show')->name('main.show');
 
 Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
 Route::get('/item/{slug}', 'ItemController@show')->name('item.show');
@@ -33,13 +35,12 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
 
     Route::resource('/item', 'Admin\ItemController')->except(['index', 'create']);
     Route::get('/item/create/{container}', 'Admin\ItemController@create')->name('item.create');
-
-    Route::get('/category', 'Admin\CategoryController@list')->name('category.list');
 });
 
 Route::group(['middleware' => 'verified'], function () {
     Route::get('/dashboard', 'User\UserController@dashboard')->name('user.dashboard');
 });
 
+Route::get('/create-placeholder-image/{file}', 'ImageController@createPlaceholderImage')->name('placeholder.image.create');
 Route::get('/create-item-image/{file}', 'ImageController@createItemImage')->name('item.image.create');
 Route::get('/create-brand-logo/{file}', 'ImageController@createBrandLogo')->name('brand.logo.create');
